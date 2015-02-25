@@ -9,7 +9,7 @@ proto.sendMessage = function(room, text) {
         text: text
     };
 
-    this.socket.message('message', message);
+    this.socket.emit('message', message);
 };
 
 proto.changeRoom = function(room) {

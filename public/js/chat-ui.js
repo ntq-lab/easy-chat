@@ -1,20 +1,3 @@
-// var socket = io(),
-//     messageBox = $('#send-message');
-
-// $('#send-form').submit(function(e) {
-//     e.preventDefault();
-
-//     // send message
-//     socket.emit('chat message', messageBox.val());
-
-//     messageBox.val('');
-
-//     return false;
-// });
-
-// socket.on('chat message', function(msg) {
-//     $('#messages').append($('<div>').text(msg));
-// });
 function divEscapedContentElement(message) {
     return $('<div></div>').text(message);
 }

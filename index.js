@@ -11,6 +11,10 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 
+app.post('/', function(req, res) {
+
+});
+
 // create server
 var server = http.Server(app);
 
