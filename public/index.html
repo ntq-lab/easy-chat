@@ -7,25 +7,8 @@
 </head>
 <body>
     <div id="content">
-        <div id="room"></div>
-        <div id="room-list"></div>
-        <div id="messages"></div>
-        <form method="POST" id="send-form">
-            <input id="send-message" type="text" autocomplete="off" />
-            <input id="send-button" type="submit" value="Send" />
-        </form>
-        <div id="help">
-            Chat commands:
-            <ul>
-                <li>Change nickname: <code>/nick [username]</code></li>
-                <li>Join/create room:<code>/join [room name]</code></li>
-            </ul>
-        </div><!-- /help -->
+        <a href="/admin">Login as admin</a>
+        <a href="/user">Login as user</a>
     </div><!-- /content -->
-
-    <script src="./socket.io/socket.io.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="/js/chat.js"></script>
-    <script src="/js/chat-ui.js"></script>
 </body>
 </html>

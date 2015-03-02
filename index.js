@@ -1,4 +1,5 @@
-var express = require('express'),
+var cookieParser = require('cookie-parser'),
+    express = require('express'),
     http = require('http');
 
 // create Express application
@@ -7,24 +8,14 @@ var app = express();
 // serve static files
 app.use(express.static(__dirname + '/public'));
 
-app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/public/index.html');
-});
+// user cookies parser
+app.use(cookieParser('my-key'));
 
-app.post('/', function(req, res) {
-
-});
+// router
+require('./routes')(app);
 
 // create server
 var server = http.Server(app);
-
-// var io = socketIO.listen(server);
-
-// io.on('connection', function(socket) {
-//     socket.on('chat message', function(msg) {
-//         io.emit('chat message', msg);
-//     });
-// });
 
 server.listen(2222, function() {
     console.log('Listening on port 2222');
