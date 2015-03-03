@@ -1,5 +1,5 @@
 'use strict';
-var maxAge = 1e9;
+var conf = require('./config');
 
 function render(page, res) {
     return res.sendFile(__dirname + '/public/' + page + '.html');
@@ -12,9 +12,11 @@ module.exports = function(app) {
 
     app.get('/admin', function(req, res) {
         // set user id for user
-        res.cookie('userID', 'admin', {
-            maxAge: maxAge
-        });
+        if (!req.cookies[conf.cookies.userID.key]) {
+            res.cookie(conf.cookies.userID.key, 'admin', {
+                maxAge: conf.cookies.maxAge
+            });
+        }
 
         render('admin', res);
     });
@@ -25,9 +27,13 @@ module.exports = function(app) {
 
     app.get('/user', function(req, res) {
         // set user id for user
-        res.cookie('userID', 'user', {
-            maxAge: maxAge
-        });
+        if (!req.cookies[conf.cookies.userID.key]) {
+            var date = new Date();
+
+            res.cookie(conf.cookies.userID.key, 'user_' + date.getTime(), {
+                maxAge: conf.cookies.maxAge
+            });
+        }
 
         render('user', res);
     });

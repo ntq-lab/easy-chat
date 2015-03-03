@@ -10,18 +10,14 @@ function processUserInput(chatApp, socket) {
     var sendMessage = $('#send-message'),
         message = sendMessage.val(),
         messageBox = $('#messages'),
-        systemMessage;
+        currentRoom = $('#currentRoom').val();
 
-    chatApp.sendMessage('admin', 'user', message);
+    chatApp.sendMessage(currentRoom, message);
 
     messageBox.append(divEscapedContentElement(message));
     messageBox.scrollTop(messageBox.prop('scrollHeight'));
 
     sendMessage.val('');
-}
-
-function assignNewUser(socket) {
-    socket.emit('newUser', 'admin');
 }
 
 // start socket.io
@@ -31,18 +27,30 @@ $(document).ready(function() {
     var chatApp = new Chat(socket),
         sendMessage = $('#send-message'),
         sendForm = $('#send-form'),
-        messageBox = $('#messages');
+        messageBox = $('#messages'),
+        currentUser = $('#currentUser'),
+        currentRoom = $('#currentRoom');
 
-    // assign user
-    assignNewUser(socket);
+    // get current user info
+    socket.on('currentUser', function(userID) {
+        // set current user to form
+        currentUser.val(userID);
+
+        socket.emit('newRoom', {
+            userCreated: userID,
+            room: userID
+        });
+    });
 
     // display received message
-    socket.on('to admin', function(data) {
+    socket.on('message', function(data) {
         console.log('received message', data);
 
         var newElement = $('<div></div>').text(data.text);
 
         messageBox.append(newElement);
+
+        currentRoom.val(data.room);
     });
 
     sendMessage.focus();
