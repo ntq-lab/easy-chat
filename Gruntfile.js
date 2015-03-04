@@ -66,23 +66,23 @@ module.exports = function(grunt) {
 		// 		}
 		// 	}
 		// },
-		// stylus: {
-		// 	options: {
-		// 		use: [ koutoSwiss ]
-		// 	},
-		// 	compile: {
-		// 		files: [ {
-		// 			src: [
-		// 				'**/*.styl',
-		// 				'!_*.styl'
-		// 			],
-		// 			expand: true,
-		// 			cwd: 'client/assets/stylus',
-		// 			ext: '.css',
-		// 			dest: 'build/.tmp/css'
-		// 		}]
-		// 	}
-		// },
+		stylus: {
+			options: {
+				use: [ koutoSwiss ]
+			},
+			compile: {
+				files: [ {
+					src: [
+						'**/*.styl',
+						'!_*.styl'
+					],
+					expand: true,
+					cwd: 'client/assets/stylus',
+					ext: '.css',
+					dest: 'build/.tmp/css'
+				}]
+			}
+		},
 		cssmin: {
 			min: {
 				files: require('./' + assetDef).css
@@ -126,14 +126,14 @@ module.exports = function(grunt) {
 			}
 		},
 		filerev: {
-			// img: {
-			// 	files: [ {
-			// 		expand: true,
-			// 		cwd: 'client/assets/img/',
-			// 		src: [ '**/*' ],
-			// 		dest: 'build/public/img/'
-			// 	} ]
-			// },
+			img: {
+				files: [ {
+					expand: true,
+					cwd: 'client/assets/img/',
+					src: [ '**/*' ],
+					dest: 'build/public/img/'
+				} ]
+			},
 			js: {
 				files: [ {
 					expand: true,
@@ -197,5 +197,5 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('verify', [ 'jshint' ]);
 	grunt.registerTask('build', [ 'clean:build', 'filerev:img', 'replace', 'stylus', 'csslint', 'cssmin', 'uglify', 'filerev:css', 'filerev:js', 'filerev_assets', 'clean:tmp' ]);
-	grunt.registerTask('default', [ 'verify', 'build', 'express:dev', 'watch' ]);
+	grunt.registerTask('default', [ 'verify', 'build', 'watch' ]);
 };
