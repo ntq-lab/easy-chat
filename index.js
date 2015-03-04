@@ -1,3 +1,4 @@
+'use strict';
 var cookieParser = require('cookie-parser'),
     express = require('express'),
     http = require('http');

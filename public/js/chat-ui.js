@@ -2,22 +2,23 @@ function divEscapedContentElement(message) {
     return $('<div></div>').text(message);
 }
 
-function divSystemContentElement(message) {
-    return $('<div></div>').html('<i>' + message + '</i>');
-}
-
 function processUserInput(chatApp, socket) {
     var sendMessage = $('#send-message'),
-        message = sendMessage.val(),
-        messageBox = $('#messages'),
-        currentRoom = $('#currentRoom').val();
+        message = sendMessage.val();
 
-    chatApp.sendMessage(currentRoom, message);
+    if (message) {
+        var messageBox = $('#messages'),
+            currentRoom = $('#currentRoom').val();
 
-    messageBox.append(divEscapedContentElement(message));
-    messageBox.scrollTop(messageBox.prop('scrollHeight'));
+        chatApp.sendMessage(currentRoom, message);
 
-    sendMessage.val('');
+        var displayMessage = 'Me: ' + message;
+
+        messageBox.append(divEscapedContentElement(displayMessage));
+        messageBox.scrollTop(messageBox.prop('scrollHeight'));
+
+        sendMessage.val('');
+    }
 }
 
 // start socket.io
@@ -28,13 +29,12 @@ $(document).ready(function() {
         sendMessage = $('#send-message'),
         sendForm = $('#send-form'),
         messageBox = $('#messages'),
-        currentUser = $('#currentUser'),
         currentRoom = $('#currentRoom');
 
     // get current user info
     socket.on('currentUser', function(userID) {
-        // set current user to form
-        currentUser.val(userID);
+        // set current room to form
+        currentRoom.val(userID);
 
         socket.emit('newRoom', {
             userCreated: userID,
@@ -44,9 +44,8 @@ $(document).ready(function() {
 
     // display received message
     socket.on('message', function(data) {
-        console.log('received message', data);
-
-        var newElement = $('<div></div>').text(data.text);
+        var message = data.fromUser + ': ' + data.text,
+            newElement = $('<div></div>').text(message);
 
         messageBox.append(newElement);
 
