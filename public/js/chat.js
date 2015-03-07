@@ -3,9 +3,12 @@ var Chat = function(socket) {
     },
     proto = Chat.prototype;
 
-proto.sendMessage = function(room, message) {
-    this.socket.emit('message', {
-        text: message,
-        room: room
+proto.sendMessage = function(group, message) {
+    this.socket.emit('serverMessage', {
+        code: 'SEND_MESSAGE',
+        data: {
+            text: message,
+            group: group
+        }
     });
 };

@@ -7,17 +7,18 @@
 </head>
 <body>
     <div id="content">
-        <div id="messages"></div>
-        <form method="POST" id="send-form">
-            <input type="hidden" id="currentUser">
-            <input type="hidden" id="currentRoom">
-            <input id="send-message" type="text" autocomplete="off" />
-            <input id="send-button" type="submit" value="Send" />
-        </form>
+        <div class="window-message">
+            <div class="display-message" id="messages"></div>
+            <form method="POST" id="send-form">
+                <input type="hidden" id="currentUser">
+                <input type="hidden" id="currentGroup">
+                <input id="send-message" type="text" autocomplete="off" />
+            </form>
+        </div>
     </div><!-- /content -->
 
     <script src="./socket.io/socket.io.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/vendors/jquery-1.11.1.min/index.js"></script>
     <script src="/js/chat.js"></script>
     <script src="/js/chat-ui.js"></script>
 </body>
