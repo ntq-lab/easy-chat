@@ -12,9 +12,9 @@ function createChatWindow(group) {
     return template.join('');
 }
 
-function appendMessageToElement(message, element) {
-    var displayMessage = 'Me: ' + message,
-        newElement = $('<div class="message-from"></div>').text(displayMessage);
+function appendMessageToElement(message, user, element, className) {
+    var displayMessage = user + ': ' + message,
+        newElement = $('<div class="' + className + '"></div>').text(displayMessage);
 
     element.append(newElement);
     element.scrollTop(element.prop('scrollHeight'));
@@ -26,12 +26,14 @@ function processUserInput(chatApp, socket) {
 
     if (message) {
         var messageBox = $('#messages'),
-            currentGroup = $('#currentGroup').val();
+            currentGroup = $('#currentGroup').val(),
+            userSent = 'Me',
+            className = 'message-from';
 
         chatApp.sendMessage(currentGroup, message);
 
         // append message to element
-        appendMessageToElement(message, messageBox);
+        appendMessageToElement(message, userSent, messageBox, className);
 
         sendMessage.val('');
     }
@@ -58,24 +60,25 @@ $(document).ready(function() {
                 break;
             case 'RECEIVE_MESSAGE':
                 var data = clientData.data,
-                    message = data.fromUser + ': ' + data.text,
-                    newElement = $('<div class="message-to"></div>').text(message);
+                    className = 'message-to',
+                    messageBox;
 
-                // check admin -> user
+                // check if admin sent to user
                 if (data.fromUser === 'admin') {
                     messageBox = $('#messages');
 
-                    messageBox.append(newElement);
+                    appendMessageToElement(data.text, data.fromUser, messageBox, className);
                 } else {
                     var group = data.group,
                         prefixDisplayMessageBox = 'display_message_',
                         prefixForm = 'form_',
-                        prefixMessageInput = 'message_',
-                        messageBox;
+                        prefixMessageInput = 'message_';
 
                     // append message to chat window if chat window is exists
                     if ($('#' + prefixDisplayMessageBox + group).length) {
-                        $('#' + prefixDisplayMessageBox + group).append(newElement);
+                        messageBox = $('#' + prefixDisplayMessageBox + group);
+
+                        appendMessageToElement(data.text, data.fromUser, messageBox, className);
                     } else {
                         // create chat window if not exists
                         var template = createChatWindow(group),
@@ -83,7 +86,7 @@ $(document).ready(function() {
 
                         messageBox = popover.find('#' + prefixDisplayMessageBox + group);
 
-                        messageBox.append(newElement);
+                        appendMessageToElement(data.text, data.fromUser, messageBox, className);
 
                         $('#content').append(popover);
                     }
@@ -96,11 +99,17 @@ $(document).ready(function() {
                             message = sendMessage.val();
 
                         if (message) {
+                            // send message to server
                             chatApp.sendMessage(group, message);
+
+                            var userSent = 'Me';
+
+                            // re-assign class name
+                            className = 'message-from';
 
                             messageBox = $('#' + prefixDisplayMessageBox + group);
 
-                            appendMessageToElement(message, messageBox);
+                            appendMessageToElement(message, userSent, messageBox, className);
 
                             sendMessage.val('');
                         }
