@@ -1,0 +1,13 @@
+{
+	"js": {
+		"build/.tmp/jsmin/home.js": [
+
+
+		]
+	},
+	"css": {
+		"build/.tmp/cssmin/home.css": [
+
+		]
+	}
+}

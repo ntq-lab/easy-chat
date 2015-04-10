@@ -1,0 +1,20 @@
+{
+  "name": "easy-chat",
+  "version": "0.0.1",
+  "homepage": "https://github.com/ntq-lab/easy-chat",
+  "authors": [
+    "hoangnv <hoangnv668@gmail.com>"
+  ],
+  "description": "Source code of www.ntq-solution.com.vn",
+  "keywords": [
+    "bower"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

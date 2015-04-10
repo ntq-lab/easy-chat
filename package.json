@@ -1,0 +1,26 @@
+{
+  "name": "easy-chat",
+  "version": "0.0.1",
+  "description": "Source code of www.ntq-solution.com.vn",
+  "main": "index.js",
+  "scripts": {
+    "test": "make easy chat"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ntq-lab/easy-chat.git"
+  },
+  "keywords": [
+    "npm"
+  ],
+  "author": "NTQ LAB <long.luc@ntq-solution.com.vn>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ntq-lab/easy-chat/issues"
+  },
+  "homepage": "https://github.com/ntq-lab/easy-chat",
+  "dependencies": {
+    "bower": "^1.4.1",
+    "grunt-cli": "^0.1.13"
+  }
+}
