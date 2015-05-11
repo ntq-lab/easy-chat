@@ -5,17 +5,35 @@ module.exports = function(grunt) {
 		jshint: {
 			client: {
 				src: [
-					'client/assets/js/**/*.js'
+					'client/assets/js/**/*.js',
+					'client/app/**/*.js'
 				],
 				options: {
 					jshintrc: 'build/rules/.jshintrc-client'
 				}
+			},
+			server: {
+				src: [
+					'server/**/*.js',
+					'server.js'
+				],
+				options: {
+					jshintrc: 'build/rules/.jshintrc-server'
+				}
 			}
 		},
 		jscs: {
-			src: '<%= jshint.client.src %>',
-			options: {
-				config: 'build/rules/.jscsrc'
+			client: {
+				src: '<%= jshint.client.src %>',
+				options: {
+					config: 'build/rules/.jscsrc'
+				}
+			},
+			server: {
+				src: '<%= jshint.server.src %>',
+				options: {
+					config: 'build/rules/.jscsrc'
+				}
 			}
 		},
 		watch: {
@@ -29,6 +47,13 @@ module.exports = function(grunt) {
 			client: {
 				files: [
 					'<%= jshint.client.src %>'
+				],
+				tasks: ['verify']
+			},
+			server: {
+				files: [
+					'server/**/*.js',
+					'server.js'
 				],
 				tasks: ['verify']
 			}
