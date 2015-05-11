@@ -22,6 +22,15 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		clean: {
+			tmp: [
+				'build/.tmp/**'
+			],
+			build: [
+				'build/public',
+				'build/rev.json'
+			]
+		},
 		jscs: {
 			client: {
 				src: '<%= jshint.client.src %>',
@@ -34,6 +43,14 @@ module.exports = function(grunt) {
 				options: {
 					config: 'build/rules/.jscsrc'
 				}
+			}
+		},
+		copy: {
+			app: {
+				expand: true,
+				cwd: 'client/',
+				dest: 'build/public/',
+				src: '**/*'
 			}
 		},
 		watch: {
@@ -63,5 +80,5 @@ module.exports = function(grunt) {
 	require('load-grunt-tasks')(grunt);
 
 	grunt.registerTask('verify', [ 'jshint', 'jscs' ]);
-	grunt.registerTask('default', [ 'verify', 'watch' ]);
+	grunt.registerTask('default', [ 'verify', 'clean', 'copy', 'watch' ]);
 }
