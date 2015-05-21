@@ -1,0 +1,9 @@
+<h1>Login</h1>
+<form method="POST" data-ng-submit="signin()">
+    <div data-ng-show="error">Email or password is invalid</div>
+    <input type="text" data-ng-model="session.email"><br/>
+    <input type="password" data-ng-model="session.password"></br>
+    <button type="submit">Login</button>
+    <button type="button" ng-click="register()">Register</button>
+</form>
+<a href="#/forgotPassword">Forgot password</a>
