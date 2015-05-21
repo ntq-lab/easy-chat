@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat room application</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+    <div id="content">
+        <div class="window-message">
+            <div class="display-message" id="messages"></div>
+            <form method="POST" id="send-form">
+                <input type="hidden" id="currentUser">
+                <input type="hidden" id="currentGroup">
+                <input id="send-message" type="text" autocomplete="off" />
+            </form>
+        </div>
+    </div><!-- /content -->
+
+    <script src="http://localhost:2222/socket.io/socket.io.js"></script>
+    <script src="http://localhost:2222/vendors/jquery-1.11.1.min/index.js"></script>
+    <script src="http://localhost:2222/js/chat.js"></script>
+    <script src="http://localhost:2222/js/chat-ui.js"></script>
+</body>
+</html>
