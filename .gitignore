@@ -27,3 +27,7 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 /public/vendors
+/client/vendors
+/node_modules
+/test/node_modules
+/test/public/vendors

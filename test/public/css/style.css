@@ -1,0 +1,52 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body{
+    padding:50px;
+    font:14px"LucidaGrande",Helvetica,Arial, sans-serif;
+}
+a {
+    color:#00B7FF;
+}
+#content {
+    margin-left:auto;
+    margin-right:auto;
+    overflow: hidden;
+}
+
+.window-message {
+    width: 300px;
+    border: 1px solid #000;
+    float: left;
+    margin: 10px;
+}
+
+.window-message .display-message {
+    height: 230px;
+    overflow-y: scroll;
+    width: 290px;
+    padding: 5px;
+}
+.window-message input[type="text"] {
+    height: 25px;
+    padding: 0 5px;
+    border: none;
+    border-top: 1px solid #000;
+    width: 290px;
+}
+.message-from,
+.message-to {
+    clear: both;
+    padding: 3px;
+    margin-bottom: 3px;
+}
+
+.message-from {
+    float: right;
+    background: #fafafa;
+}
+.message-to {
+    float: left;
+    background: #f1f1f1;
+}
