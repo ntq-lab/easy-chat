@@ -1,6 +1,7 @@
 ;(function(){
-	'use strict'
-	var SessionFactory = function($resource){
+	'use strict';
+	
+	var SessionFactory = function($resource) {
 		var Session = $resource('/api/session/', {
 
 		}, {

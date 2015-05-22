@@ -1,5 +1,6 @@
 ;(function(){
-	'use strict'
+	'use strict';
+	
 	var mongoose = require('mongoose');
 	var account = require('../models/account');
 	var Account = mongoose.model('Account');
@@ -7,18 +8,22 @@
 	var self = module.exports;
 
 	function findByAccount(account) {
-		var query = Account.findOne ({
+		var query = Account.findOne({
 			email: account.email,
 			password: account.password
 		});
+
 		var queryexec = bird.promisify(query.exec, query);
 		return queryexec().then(function(account) {
 			return account;
 		});
 	}
 
-	function findByEmail(email){
-		var query = Account.findOne({email: email});
+	function findByEmail(email) {
+		var query = Account.findOne({
+			email: email
+		});
+
 		var queryexec = bird.promisify(query.exec, query);
 		return queryexec().then(function(account) {
 			return account;
@@ -32,16 +37,17 @@
 	function createToken(req, res, next) {
 		var token = new Date().getTime();
 
-        if (!req.cookies.token) {
-            res.cookie('token', token, {
-                maxAge: 1e9
-            });
-        }
-        return res.json({
-        	status: 200,
-        	message: 'login success!'
-        });
-	}
+		if (!req.cookies.token) {
+			res.cookie('token', token, {
+			maxAge: 1e9
+			});
+		}
+
+		return res.json({
+			status: 200,
+			message: 'login success!'
+			});
+		}
 
 	self.getSession = function(req, res, next) {
 		console.log('---------------> get session');
@@ -59,10 +65,8 @@
 
 	self.login = function(req, res, next) {
 		console.log('---------------> login');
-		console.log(req.body);
 		return findByAccount(req.body).then(function(account) {
 			if (account !== null) {
-				console.log('login success');
 				return createToken(req, res, next);
 			} else {
 				return res.json({
@@ -76,7 +80,7 @@
 
 	self.createSession = function(req, res, next) {
 		console.log('---------------> create session');
-		return findByEmail(req.body.email).then(function(account){
+		return findByEmail(req.body.email).then(function(account) {
 			if (account !== null) {
 				return res.json({
 					status: 500,
@@ -92,7 +96,7 @@
 
 			var queryexec = bird.promisify(query.save, query);
 
-			return queryexec().then(function (account) {
+			return queryexec().then(function(account) {
 				return  createToken(req, res, next);
 			});
 		});
@@ -108,22 +112,16 @@
 				});	
 			}
 
-			var query = account({ 
-				password: 'changed'
-			});
+			// set new password for account
+			account.password = 'changed';
 
-			var queryexec = bird.promisify(query.save, query);
+			var queryexec = bird.promisify(account.save, account);
 			return queryexec().then(function(account) {
-				console.log(account);
+				return res.json({
+					status: 200,
+					message: 'change password success. New password is changed'
+				});
 			});
-			// return queryexec().then(function(account) {
-			// 	console.log(account);
-			// 	return res.json({
-			// 		status: 200,
-			// 		message: 'change password success. New password is changed'
-			// 	});
-			// });
 		});
-		
 	};
 })();

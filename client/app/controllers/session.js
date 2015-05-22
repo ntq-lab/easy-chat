@@ -1,28 +1,27 @@
 ;(function() {
-    var SessionCtrl = function($scope, $location, Session) {
-        $scope.error = false;
+	'use strict';
 
-        $scope.session = new Session();
+	var SessionCtrl = function($scope, $location, Session) {
+		$scope.error = false;
+		$scope.session = new Session();
 
-        $scope.signin = function() {
-            $scope.session.$save().then(function(data) {
-                $location.path('/');
-            }).catch(function(err) {
-                $scope.error = true;
-            });
-        };
+		$scope.signin = function() {
+			$scope.session.$save().then(function(data) {
+				$location.path('/');
+			}).catch(function(err) {
+				$scope.error = true;
+			});
+		};
 
-        $scope.register = function() {
-            $scope.session.$register().then(function(data) {
-                $location.path('/');
+		$scope.register = function() {
+			$scope.session.$register().then(function(data) {
+				$location.path('/');
+			}).catch(function(err) {
+				$scope.error = true;
+			});
+		};
+	};
 
-            }).catch(function(err) {
-                $scope.error = true;
-            });
-        };
-    };
-
-    SessionCtrl.$inject = [ '$scope', '$location', 'Session' ];
-
-    angular.module('EasyChat').controller('SessionCtrl', SessionCtrl);
+	SessionCtrl.$inject = ['$scope', '$location', 'Session'];
+	angular.module('EasyChat').controller('SessionCtrl', SessionCtrl);
 })();

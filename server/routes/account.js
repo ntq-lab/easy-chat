@@ -1,5 +1,5 @@
 ;(function(){
-	'use strict'
+	'use strict';
 
 	var account = require('../middlewares/account');
 
