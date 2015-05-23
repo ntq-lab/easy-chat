@@ -20,7 +20,7 @@
 			controller: 'ForgotPasswordCtrl',
 			templateUrl: 'app/views/forgotPassword.html'
 		}).otherwise({
-			redirecTo: '/signin'
+			redirectTo: '/signin'
 		});
 	}]).run(function() {
 		//Todo: write logic code

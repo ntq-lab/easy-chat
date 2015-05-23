@@ -1,9 +1,9 @@
 ;(function(){
 	'use strict';
-	
+
 	var SessionFactory = function($resource) {
 		var Session = $resource('/api/session/', {
-
+			// nothing
 		}, {
 			register: {
 				method: 'POST',

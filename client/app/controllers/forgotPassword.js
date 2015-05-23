@@ -7,6 +7,7 @@
 
 		$scope.forgotPassword = function() {
 			$scope.session.$forgotPassword().then(function(res) {
+				console.log(res);
 				$location.path('/');
 			}).catch(function(err) {
 				$scope.error = true;

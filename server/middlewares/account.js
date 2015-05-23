@@ -34,7 +34,7 @@
 
 	}
 
-	function createToken(req, res, next) {
+	function createToken(req, res, message) {
 		var token = new Date().getTime();
 
 		if (!req.cookies.token) {
@@ -45,12 +45,11 @@
 
 		return res.json({
 			status: 200,
-			message: 'login success!'
+			message: message
 			});
 		}
 
 	self.getSession = function(req, res, next) {
-		console.log('---------------> get session');
 		if (req.cookies.token) {
 			return res.json({
 				status: 200,
@@ -64,10 +63,10 @@
 	};
 
 	self.login = function(req, res, next) {
-		console.log('---------------> login');
 		return findByAccount(req.body).then(function(account) {
 			if (account !== null) {
-				return createToken(req, res, next);
+				var message = 'login success';
+				return createToken(req, res, message);
 			} else {
 				return res.json({
 					status: 500,
@@ -79,7 +78,6 @@
 	};
 
 	self.createSession = function(req, res, next) {
-		console.log('---------------> create session');
 		return findByEmail(req.body.email).then(function(account) {
 			if (account !== null) {
 				return res.json({
@@ -97,13 +95,13 @@
 			var queryexec = bird.promisify(query.save, query);
 
 			return queryexec().then(function(account) {
-				return  createToken(req, res, next);
+				var message = 'create user success!';
+				return createToken(req, res, message);
 			});
 		});
 	};
 
 	self.forgotPassword = function(req, res, next) {
-		console.log('---------------> forgot password');
 		return findByEmail(req.body.email).then(function(account) {
 			if (account === null) {
 				return res.json({
@@ -117,10 +115,8 @@
 
 			var queryexec = bird.promisify(account.save, account);
 			return queryexec().then(function(account) {
-				return res.json({
-					status: 200,
-					message: 'change password success. New password is changed'
-				});
+				var message = 'forgot password success!'
+				return createToken(req, res, message);
 			});
 		});
 	};
